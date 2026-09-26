@@ -33,7 +33,7 @@ module.exports = {
 ⏳ Total Time Running:
 💫 ${uptimeString}
 
-👑 Bot by: Aminulsardar
+👑 Bot by: Mark Zuckerberg 
 `;
 
     return api.sendMessage(message, event.threadID);
