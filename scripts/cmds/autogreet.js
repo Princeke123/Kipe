@@ -1,11 +1,11 @@
 module.exports = {
   config: {
     name: "autogreet",
-    version: "1.0",
+    version: "1.1",
     author: "Aminul Sardar",
     countDown: 0,
     role: 0,
-    shortDescription: "Auto react to greetings and announcements",
+    shortDescription: "Auto react to greetings, announcements and laughter",
     category: "events"
   },
 
@@ -19,25 +19,57 @@ module.exports = {
 
       const text = body.toLowerCase();
 
-      const keywords = [
+      // ❤️ HEART REACTION
+      const heartKeywords = [
         "good morning",
+        "gud morning",
+        "gd morning",
+
         "good afternoon",
+        "gud afternoon",
+        "gd afternoon",
+
         "good evening",
+        "gud evening",
+        "gd evening",
+
+        "good day",
+        "gud day",
+        "gd day",
+
         "announcement"
       ];
 
-      const matched = keywords.some(keyword =>
-        text.includes(keyword)
-      );
+      // 😆 LAUGH REACTION
+      const laughKeywords = [
+        "haha",
+        "hahaha",
+        "hahha",
+        "hahah",
+        "hahahaha",
+        "hahahahaha"
+      ];
 
-      if (!matched) return;
+      // ❤️ Check heart keywords first
+      if (heartKeywords.some(keyword => text.includes(keyword))) {
+        api.setMessageReaction(
+          "❤️",
+          messageID,
+          () => {},
+          true
+        );
+        return;
+      }
 
-      api.setMessageReaction(
-        "❤️",
-        messageID,
-        () => {},
-        true
-      );
+      // 😆 Check laugh keywords
+      if (laughKeywords.some(keyword => text.includes(keyword))) {
+        api.setMessageReaction(
+          "😆",
+          messageID,
+          () => {},
+          true
+        );
+      }
 
     } catch (err) {
       console.error("[AUTOGREET ERROR]", err);
